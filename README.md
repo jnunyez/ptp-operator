@@ -1,4 +1,35 @@
 # PTP Operator
+## Hack GPSD
+
+1) connect gpsd output to namedpiped shared between two containers. From gpsd daemon in ptp-operator daemonset:
+
+```
+sh-5.1# oc exec -it linuxptp-daemon-rk49w -c gpsd -- sh
+sh-5.1# mkfifo /gpsd/data
+
+sh-5.1# gpspipe -r > /gpsd/data &
+[1] 2020984
+sh-5.1# cat /gpsd/data 
+{"class":"VERSION","release":"3.25.1~dev","rev":"release-3.25-26-g8ab2872d3","proto_major":3,"proto_minor":15}
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/gnss0","driver":"u-blox","subtype":"SW EXT CORE 1.00 (3fda8e),HW 00190000","subtype1":"ROM BASE 0x118B2060,FWVER=TIM 2.20,PROTVER=29.20,MOD=ZED-F9T,GPS;GLO;GAL;BDS,SBAS;QZSS,NAVIC","activated":"2023-04-20T12:30:20.787Z","flags":1,"mincycle":0.02}]}
+{"class":"WATCH","enable":true,"json":false,"nmea":true,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+$GNRMC,150638.00,A,4233.01364,N,07112.87794,W,0.005,,200423,,,A,V*0B
+$GNGGA,150638.00,4233.01364,N,07112.87794,W,1,09,0.91,56.5,M,-33.0,M,,*45
+$GNRMC,150639.00,A,4233.01364,N,07112.87795,W,0.005,,200423,,,A,V*0B
+```
+2) Data from gpsd can be read from linuxptp-daemon-container :
+
+```
+[jnunez@flexran-ru ~]$  oc exec -it linuxptp-daemon-rk49w -c linuxptp-daemon-container -- sh
+sh-4.4# cat /gpsd/data 
+{"class":"VERSION","release":"3.25.1~dev","rev":"release-3.25-26-g8ab2872d3","proto_major":3,"proto_minor":15}
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/gnss0","driver":"u-blox","subtype":"SW EXT CORE 1.00 (3fda8e),HW 00190000","subtype1":"ROM BASE 0x118B2060,FWVER=TIM 2.20,PROTVER=29.20,MOD=ZED-F9T,GPS;GLO;GAL;BDS,SBAS;QZSS,NAVIC","activated":"2023-04-20T12:32:14.440Z","flags":1,"mincycle":0.02}]}
+{"class":"WATCH","enable":true,"json":false,"nmea":true,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+$GNRMC,150843.00,A,4233.01370,N,07112.87813,W,0.001,,200423,,,A,V*08
+$GNGGA,150843.00,4233.01370,N,07112.87813,W,1,09,0.92,57.1,M,-33.0,M,,*44
+$GNRMC,150844.00,A,4233.01370,N,07112.87813,W,0.002,,200423,,,A,V*0C
+```
+
 ## Table of Contents
 
 - [PTP Operator](#ptp-operator)
