@@ -1,0 +1,137 @@
+apiVersion: ptp.openshift.io/v1
+kind: PtpConfig
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ptp.openshift.io/v1","kind":"PtpConfig","metadata":{"annotations":{},"name":"grandmaster","namespace":"openshift-ptp"},"spec":{"profile":[{"interface":"ens7f1","name":"grandmaster","phc2sysOpts":"-r -u 0 -m -O -37 -N 8 -R 16 -s ens7f1 -n 24","ptp4lConf":"[global]\n#\n# Default Data Set\n#\ntwoStepFlag 1\nslaveOnly 0\npriority1 128\npriority2 128\ndomainNumber 24\n#utc_offset 37\nclockClass 248\nclockAccuracy 0xFE\noffsetScaledLogVariance 0xFFFF\nfree_running 0\nfreq_est_interval 1\ndscp_event 0\ndscp_general 0\n#dataset_comparison ieee1588\ndataset_comparison G.8275.x\nG.8275.defaultDS.localPriority 128\n#\n# Port Data Set\n#\nlogAnnounceInterval -3\nlogSyncInterval -4\nlogMinDelayReqInterval -4\nlogMinPdelayReqInterval -4\nannounceReceiptTimeout 3\nsyncReceiptTimeout 0\ndelayAsymmetry 0\nfault_reset_interval 4\nneighborPropDelayThresh 20000000\nmasterOnly 1\nG.8275.portDS.localPriority 128\n#\n# Run time options\n#\nassume_two_step 0\nlogging_level 6\npath_trace_enabled 0\nfollow_up_info 0\nhybrid_e2e 0\ninhibit_multicast_service 0\nnet_sync_monitor 0\ntc_spanning_tree 0\ntx_timestamp_timeout 50\nunicast_listen 0\nunicast_master_table 0\nunicast_req_duration 3600\nuse_syslog 1\nverbose 1\nsummary_interval 0\nkernel_leap 1\ncheck_fup_sync 0\n#\n# Servo Options\n#\npi_proportional_const 0.0\npi_integral_const 0.0\npi_proportional_scale 0.0\npi_proportional_exponent -0.3\npi_proportional_norm_max 0.7\npi_integral_scale 0.0\npi_integral_exponent 0.4\npi_integral_norm_max 0.3\nstep_threshold 0.0\nfirst_step_threshold 0.00002\nmax_frequency 900000000\n#clock_servo pi\nclock_servo linreg\nsanity_freq_limit 200000000\nntpshm_segment 0\n#\n# Transport options\n#\ntransportSpecific 0x0\nptp_dst_mac 01:1B:19:00:00:00\np2p_dst_mac 01:80:C2:00:00:0E\nudp_ttl 1\nudp6_scope 0x0E\nuds_address /var/run/ptp4l\n#\n# Default interface options\n#\nclock_type OC\nnetwork_transport L2\ndelay_mechanism E2E\ntime_stamping hardware\ntsproc_mode filter\ndelay_filter moving_median\ndelay_filter_length 10\negressLatency 0\ningressLatency 0\nboundary_clock_jbod 0\n#\n# Clock description\n#\nproductDescription ;;\nrevisionData ;;\nmanufacturerIdentity 00:00:00\nuserDescription ;\ntimeSource 0xA0\n","ptp4lOpts":"-m -2 --summary_interval 0","ptpSchedulingPolicy":"SCHED_FIFO","ptpSchedulingPriority":10,"ts2PhcConf":"[nmea]\nts2phc.master 1\n[global]\nuse_syslog  0\nverbose 1\nlogging_level 7\nts2phc.pulsewidth 100000000\nleapfile  /ts2phc/leap-seconds.list   \n#GNSS module s /dev/ttyGNSS* \nts2phc.nmea_serialport  /dev/ttyGNSS_8600\n[ens7f0]\nts2phc.extts_polarity rising\nts2phc.extts_correction 0\n","ts2PhcOpts":"-m"}],"recommend":[{"match":[{"nodeLabel":"node-role.kubernetes.io/worker","nodeName":"r740-u27.cormorant.wpc.test"}],"priority":4,"profile":"grandmaster"}]}}
+  creationTimestamp: "2023-01-30T18:39:44Z"
+  generation: 1
+  name: grandmaster
+  namespace: openshift-ptp
+  resourceVersion: "383639"
+  uid: 21f23fed-f83b-4a01-8b2c-e90816964321
+spec:
+  profile:
+  - interface: ens7f1
+    name: grandmaster
+    phc2sysOpts: -r -u 0 -m -O -37 -N 8 -R 16 -s ens7f1 -n 24
+    ptp4lConf: |
+      [global]
+      #
+      # Default Data Set
+      #
+      twoStepFlag 1
+      slaveOnly 0
+      priority1 128
+      priority2 128
+      domainNumber 24
+      #utc_offset 37
+      clockClass 248
+      clockAccuracy 0xFE
+      offsetScaledLogVariance 0xFFFF
+      free_running 0
+      freq_est_interval 1
+      dscp_event 0
+      dscp_general 0
+      #dataset_comparison ieee1588
+      dataset_comparison G.8275.x
+      G.8275.defaultDS.localPriority 128
+      #
+      # Port Data Set
+      #
+      logAnnounceInterval -3
+      logSyncInterval -4
+      logMinDelayReqInterval -4
+      logMinPdelayReqInterval -4
+      announceReceiptTimeout 3
+      syncReceiptTimeout 0
+      delayAsymmetry 0
+      fault_reset_interval 4
+      neighborPropDelayThresh 20000000
+      masterOnly 1
+      G.8275.portDS.localPriority 128
+      #
+      # Run time options
+      #
+      assume_two_step 0
+      logging_level 6
+      path_trace_enabled 0
+      follow_up_info 0
+      hybrid_e2e 0
+      inhibit_multicast_service 0
+      net_sync_monitor 0
+      tc_spanning_tree 0
+      tx_timestamp_timeout 50
+      unicast_listen 0
+      unicast_master_table 0
+      unicast_req_duration 3600
+      use_syslog 1
+      verbose 1
+      summary_interval 0
+      kernel_leap 1
+      check_fup_sync 0
+      #
+      # Servo Options
+      #
+      pi_proportional_const 0.0
+      pi_integral_const 0.0
+      pi_proportional_scale 0.0
+      pi_proportional_exponent -0.3
+      pi_proportional_norm_max 0.7
+      pi_integral_scale 0.0
+      pi_integral_exponent 0.4
+      pi_integral_norm_max 0.3
+      step_threshold 0.0
+      first_step_threshold 0.00002
+      max_frequency 900000000
+      #clock_servo pi
+      clock_servo linreg
+      sanity_freq_limit 200000000
+      ntpshm_segment 0
+      #
+      # Transport options
+      #
+      transportSpecific 0x0
+      ptp_dst_mac 01:1B:19:00:00:00
+      p2p_dst_mac 01:80:C2:00:00:0E
+      udp_ttl 1
+      udp6_scope 0x0E
+      uds_address /var/run/ptp4l
+      #
+      # Default interface options
+      #
+      clock_type OC
+      network_transport L2
+      delay_mechanism E2E
+      time_stamping hardware
+      tsproc_mode filter
+      delay_filter moving_median
+      delay_filter_length 10
+      egressLatency 0
+      ingressLatency 0
+      boundary_clock_jbod 0
+      #
+      # Clock description
+      #
+      productDescription ;;
+      revisionData ;;
+      manufacturerIdentity 00:00:00
+      userDescription ;
+      timeSource 0xA0
+    ptp4lOpts: -m -2 --summary_interval 0
+    ptpSchedulingPolicy: SCHED_FIFO
+    ptpSchedulingPriority: 10
+    plugins:
+      e810:
+        enableDefaultConfig: true
+    ts2phcOpts: "-m"
+    ts2phcConf: "[nmea]\nts2phc.master 1\n[global]\nuse_syslog  0\nverbose 1\nlogging_level
+      7\nts2phc.pulsewidth 100000000\nleapfile  /usr/share/zoneinfo/leap-seconds.list   \n#GNSS
+      module s /dev/ttyGNSS* \nts2phc.nmea_serialport  /gpsd/data\n[ens7f1]\nts2phc.extts_polarity
+      rising\nts2phc.extts_correction 0\n"
+  recommend:
+  - match:
+    - nodeLabel: node-role.kubernetes.io/worker
+      nodeName: r740-u27.cormorant.wpc.test
+    priority: 4
+    profile: grandmaster

@@ -1,7 +1,9 @@
 # PTP Operator
 ## Hack GPSD
 
-1) connect gpsd output to namedpiped shared between two containers. From gpsd daemon in ptp-operator daemonset:
+1) make deploy IMG=quay.io/jnunez/origin-ptp-operator:hack2
+2) oc apply -f `tgm.yaml`
+3) connect gpsd output to namedpiped shared between two containers. From gpsd daemon in ptp-operator daemonset:
 
 ```
 sh-5.1# oc exec -it linuxptp-daemon-rk49w -c gpsd -- sh
@@ -17,7 +19,8 @@ $GNRMC,150638.00,A,4233.01364,N,07112.87794,W,0.005,,200423,,,A,V*0B
 $GNGGA,150638.00,4233.01364,N,07112.87794,W,1,09,0.91,56.5,M,-33.0,M,,*45
 $GNRMC,150639.00,A,4233.01364,N,07112.87795,W,0.005,,200423,,,A,V*0B
 ```
-2) Data from gpsd can be read from linuxptp-daemon-container :
+
+4) Data from gpsd can be read from linuxptp-daemon-container :
 
 ```
 [jnunez@flexran-ru ~]$  oc exec -it linuxptp-daemon-rk49w -c linuxptp-daemon-container -- sh
